@@ -25,6 +25,7 @@ const textFormLast = document.querySelector("#last");
 const emailForm = document.querySelector("#email");
 const birthForm = document.querySelector("#birthdate");
 const quantityForm = document.querySelector("#quantity");
+
 // Checkbox in form
 const loc1Form = document.querySelector("#location1");
 const loc2Form = document.querySelector("#location2");
@@ -48,18 +49,15 @@ modalClose.addEventListener("click", closeModal);
 formReserve.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  let ctrlTextForm = (textFormFirst.value.length > 2 && textFormLast.value.length > 2);
-  let ctrlMailForm = emailForm.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
-  let ctrlBirthForm = birthForm.value != '';
-  let ctrlQuantityForm = quantityForm.value != '';
-  let ctrlRadioLocForm = (loc1Form.checked || loc2Form.checked || loc3Form.checked || loc4Form.checked || loc5Form.checked || loc6Form.checked);
-  let ctrlCheckbox = checkbox1.checked;
+  let checkTextForm = (textFormFirst.value.length > 2 && textFormLast.value.length > 2);
+  let checkMailForm = emailForm.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
+  let checkBirthForm = birthForm.value != '';
+  let checkQuantityForm = quantityForm.value != '';
+  let checkRadioLocForm = (loc1Form.checked || loc2Form.checked || loc3Form.checked || loc4Form.checked || loc5Form.checked || loc6Form.checked);
+  let checkCheckbox = checkbox1.checked;
 
-  /* let ctrlRadioLocForm2 = ; */
 
-  /* ctrlTextForm && ctrlMailForm && ctrlBirthForm && ctrlQuantityForm && ctrlRadioLocForm && */
-
-  if (ctrlCheckbox) {
+  if (checkTextForm && checkMailForm && checkBirthForm && checkQuantityForm && checkRadioLocForm && checkCheckbox) {
     // Affichage message réussite
     validationSuccess();
   } else {
@@ -71,18 +69,8 @@ formReserve.addEventListener("submit", (e) => {
 
 subBtn.addEventListener('click', () => {
   if (subBtn.classList.contains('btn-sub-close')) {
-    let textValid = document.querySelector('.text-valid-form');
-    textValid.remove();
-    formData.forEach((formData) => {
-      formData.style.visibility = 'visible';
-      formData.style.opacity = 1;
-    });
-    labelRadio.style.visibility = 'visible';
-    labelRadio.style.opacity = 1;
     formReserve.submit();
-    closeModal();
   }
-
 })
 
 // launch modal form
@@ -92,13 +80,16 @@ function launchModal() {
 
 // close modal function
 function closeModal() {
-  modalbg.style.display = "none";
+  if (subBtn.classList.contains('btn-sub-close')) {
+    formReserve.submit();
+  } else {
+    modalbg.style.display = "none";
+  }
+
 }
 
 // Affichage réussite function 
 function validationSuccess() {
-  console.log('ok');
-
   // Masquer le form
   formData.forEach((formData) => {
     formData.style.visibility = 'hidden';
@@ -107,11 +98,11 @@ function validationSuccess() {
   labelRadio.style.visibility = 'hidden';
   labelRadio.style.opacity = 0;
 
-  textValidationForm();
+  messageValidation();
 
-  // Changer le text du btn + 
+  // Changer le text du btn + add la classe btn-sub-close
   subBtn.value = 'Fermer';
-  subBtn.classList.toggle('btn-sub-close');
+  subBtn.classList.add('btn-sub-close');
 }
 
 // affichage échec function 
@@ -122,9 +113,8 @@ function validationFailure() {
 
 
 // Faire apparaitre le text de validation
-function textValidationForm() {
+function messageValidation() {
   let textValid = document.createElement('p');
-  textValid.classList.add('text-valid-form');
   textValid.textContent = 'Merci pour votre inscription';
   textValid.style.position = 'absolute';
   textValid.style.top = '40%';
