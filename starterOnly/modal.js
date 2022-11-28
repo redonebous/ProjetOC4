@@ -7,6 +7,8 @@ function editNav() {
   }
 }
 
+const body = document.querySelector("body");
+
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalbdy = document.querySelector(".modal-body");
@@ -36,7 +38,6 @@ const labelRadio = document.querySelector(".text-label");
 let errors = [];
 
 
-
 // Launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
@@ -57,6 +58,17 @@ formReserve.addEventListener("submit", (e) => {
   if (errors.length === 0) validationSuccess();
 })
 
+let textControl = [form['firstname'], form['lastname']];
+textControl.forEach((crtl) => crtl.addEventListener('keydown', (e) => {
+  let allowKeyPress = /[a-zA-Z]/g;
+  if (allowKeyPress.test(e.key)) {
+  } else {
+    e.preventDefault();
+  }
+}))
+
+
+
 
 // Avoid not number keypress in the quantity form
 form['quantity'].addEventListener('keydown', (e) => {
@@ -74,10 +86,16 @@ subBtn.addEventListener('click', () => {
   }
 })
 
+
 // Launch modal form and remove error in case of modal close
 function launchModal() {
   resetError();
   modalbg.style.display = "block";
+  if (screen.width <= 680) {
+    body.style.overflow = "hidden";
+    window.scroll(0, 0);
+  }
+
 }
 
 // Close the modal form and submit if it's complete 
@@ -86,6 +104,7 @@ function closeModal() {
     formReserve.submit();
   } else {
     modalbg.style.display = "none";
+    if (screen.width <= 680) body.style.overflow = "unset";
   }
 
 }
@@ -102,8 +121,8 @@ function checkInput(name) {
   let cities = Array.from(form['location']);
 
   let checks = {
-    firstname: form['firstname'].value.length >= 2,
-    lastname: form['lastname'].value.length >= 2,
+    firstname: /^([A-Z][a-z]{1,})|([a-z]{2,})/g.test(form['firstname'].value),
+    lastname: /^([A-Z][a-z]{1,})|([a-z]{2,})/g.test(form['lastname'].value),
     email: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(form['email'].value),
     birthdate: form['birthdate'].value != '',
     quantity: form['quantity'].value != '' && form['quantity'].value.length <= 2,
@@ -170,24 +189,28 @@ function validationFailure() {
 
   for (let prop in form) {
     // Reset error display on the input
-    if (prop != 'location' && form[prop].parentNode.hasAttribute("data-error")) {
-      form[prop].parentNode.removeAttribute("data-error");
-      form[prop].parentNode.removeAttribute("data-error-visible");
-    } else if (prop == 'location' && form[prop][0].parentNode.hasAttribute("data-error")) {
-      form[prop][0].parentNode.removeAttribute("data-error");
-      form[prop][0].parentNode.removeAttribute("data-error-visible");
+    let cible = form[prop].parentNode;
+    let locationCible = form['location'][0].parentNode;
+    if (prop != 'location' && cible.parentNode.hasAttribute("data-error")) {
+      cible.parentNode.removeAttribute("data-error");
+      cible.parentNode.removeAttribute("data-error-visible");
+    } else if (prop == 'location' && locationCible.parentNode.hasAttribute("data-error")) {
+      locationCible.parentNode.removeAttribute("data-error");
+      locationCible.parentNode.removeAttribute("data-error-visible");
     }
     errors.forEach(err => {
       // Add error display and text error on the input
       if (prop != 'location' && err == prop) {
-        form[prop].parentNode.setAttribute("data-error", errorText[prop]);
-        form[prop].parentNode.setAttribute("data-error-visible", "true");
+        cible.parentNode.setAttribute("data-error", errorText[prop]);
+        cible.parentNode.setAttribute("data-error-visible", "true");
       } else if (prop == 'location' && err == prop) {
-        form[prop][0].parentNode.setAttribute("data-error", errorText[prop]);
-        form[prop][0].parentNode.setAttribute("data-error-visible", "true");
+        locationCible.parentNode.setAttribute("data-error", errorText[prop]);
+        locationCible.parentNode.setAttribute("data-error-visible", "true");
       }
     })
   }
 
 }
+
+
 
