@@ -13,18 +13,13 @@
 /* Landing Page */
 
 body {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
   background-image: url("background.png");
   font-family: var(--font-default);
   font-size: 18px;
-  max-width: 1300px;
-  margin: 0 auto;
+  height: 100vh;
 }
 
 p {
-  margin-bottom: 0;
   padding: 0.5vw;
 }
 
@@ -33,25 +28,33 @@ img {
 }
 
 .topnav {
-  overflow: hidden;
-  margin: 3.5%;
+  /* overflow: hidden; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 90%;
+  height: 150px;
+  padding: 30px;
+  margin: 0% 5%;
 }
 
 .header-logo {
-  float: left;
+  display: flex;
+  justify-content: start;
+  align-items: center;
 }
 
 .main-navbar {
-  float: right;
+  display: flex;
 }
 
+
 .topnav a {
-  float: left;
   display: block;
   color: #000000;
   text-align: center;
   padding: 12px 12px;
-  margin: 5px;
   text-decoration: none;
   font-size: 20px;
   font-family: Roboto, sans-serif;
@@ -73,61 +76,16 @@ img {
   display: none;
 }
 
-@media screen and (max-width: 768px) {
-  .topnav a {
-    display: none;
-  }
-
-  .topnav a.icon {
-    float: right;
-    display: block;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .topnav.responsive {
-    position: relative;
-  }
-
-  .topnav.responsive .icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-
-  .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
-}
-
-
-
-@media screen and (max-width: 540px) {
-  .topnav a {
-    display: none;
-  }
-
-  .topnav a.icon {
-    float: right;
-    display: block;
-    margin-top: -15px;
-  }
-}
 
 main {
   font-size: 130%;
+  padding: 15px 30px;
+  width: 90%;
+  margin: 0% 5%;
   font-weight: bolder;
   color: black;
-  padding-top: 0.5vw;
-  padding-left: 2vw;
-  padding-right: 2vw;
-  margin: 1px 20px 15px;
   border-radius: 2rem;
   text-align: justify;
-
-
 }
 
 .modal-btn {
@@ -175,7 +133,7 @@ main {
 .bground {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 3;
   left: 0;
   top: 0;
   height: 100%;
@@ -209,6 +167,8 @@ label {
   font-weight: normal;
   display: inline-block;
   margin-bottom: 11px;
+  width: 100%;
+  text-align: start;
 }
 
 input {
@@ -218,7 +178,7 @@ input {
 }
 
 .text-control {
-  margin: 0;
+  margin-top: 10px;
   padding: 8px;
   width: 100%;
   border-radius: 8px;
@@ -228,12 +188,13 @@ input {
 
 .formData[data-error]::after {
   content: attr(data-error);
+  width: 100%;
   font-size: 0.4em;
   color: #e54858;
   display: block;
   margin-top: 7px;
   margin-bottom: 7px;
-  text-align: right;
+  text-align: left;
   line-height: 0.3;
   opacity: 0;
   transition: 0.3s;
@@ -259,6 +220,16 @@ input {
   margin-left: 36px;
   font-size: 12px;
   font-weight: normal;
+}
+
+.checkbox-label {
+  white-space: nowrap;
+  flex: 0 1 15%;
+}
+
+#locEvent {
+  display: flex;
+  flex-flow: row wrap;
 }
 
 .checkbox-label .checkbox-icon,
@@ -297,12 +268,12 @@ input {
   display: none;
 }
 
-.checkbox-input:checked+.checkbox-label .checkbox-icon::after,
-.checkbox-input:checked+.checkbox2-label .checkbox-icon::after {
+.checkbox-label .checkbox-input:checked+.checkbox-icon::after,
+.checkbox2-label .checkbox-input:checked+.checkbox-icon::after {
   opacity: 1;
 }
 
-.checkbox-input:checked+.checkbox2-label .checkbox-icon {
+.checkbox2-label .checkbox-input:checked+.checkbox-icon {
   background: #279e7a;
 }
 
@@ -442,17 +413,18 @@ input {
 }
 
 .hero-section {
-  min-height: 93vh;
   border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  overflow: hidden;
   box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.2);
   margin-bottom: 10px;
 }
 
 .hero-content {
   padding: 51px 67px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
   grid-column: span 4;
   background: #232323;
   color: #fff;
@@ -507,6 +479,7 @@ input {
   height: 100%;
   display: block;
   padding: 0;
+  object-fit: cover;
 }
 
 .copyrights {
@@ -527,7 +500,84 @@ footer {
   margin: 0 20px;
 }
 
-@media screen and (max-width: 800px) {
+
+@media screen and (max-width: 1156px) {
+  .topnav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+  }
+
+  main {
+    padding: 50px 30px;
+  }
+
+  .hero-headline {
+    font-size: 5rem;
+  }
+
+}
+
+@media screen and (max-width: 970px) {
+  .topnav {
+    flex-direction: row;
+    align-items: center;
+    gap: unset;
+    padding: 0px 30px;
+    height: 15%;
+  }
+
+  .topnav a {
+    display: none;
+  }
+
+  .topnav a.icon {
+    display: block;
+    color: #fe142f;
+  }
+
+  .topnav a.icon:hover {
+    color: white;
+  }
+
+  .topnav.responsive {
+    position: relative;
+  }
+
+  .topnav.responsive a.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: white;
+  }
+
+  .topnav.responsive a {
+    display: block;
+    text-align: left;
+  }
+
+  .header-logo img {
+    width: 70%;
+  }
+
+  .main-navbar {
+    position: absolute;
+    right: 30px;
+    top: 30%;
+    flex-direction: column;
+    z-index: 2;
+    background-color: white;
+    border-radius: 15px;
+  }
+
+  .main-navbar a {
+    font-size: 16px;
+  }
+
+  main {
+    padding: 0px 30px 15px 30px;
+  }
+
   .hero-section {
     display: block;
     box-shadow: unset;
@@ -536,7 +586,7 @@ footer {
   .hero-content {
     background: #fff;
     color: #000;
-    padding: 20px;
+    padding: 0px;
   }
 
   .hero-content::after {
@@ -548,7 +598,7 @@ footer {
   }
 
   .hero-headline {
-    font-size: 4.5rem;
+    font-size: 4rem;
     white-space: normal;
   }
 
@@ -571,6 +621,160 @@ footer {
   .copyrights {
     margin-top: 50px;
     text-align: center;
+  }
+
+}
+
+@media screen and (max-width: 780px) {
+
+  .main-navbar a {
+    font-size: 14px;
+  }
+
+  .hero-headline {
+    font-size: 3.5rem;
+  }
+
+  .hero-text {
+    font-size: 1.2rem;
+  }
+
+  .header-logo img {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .hero-content {
+    min-width: unset;
+  }
+
+  .hero-headline {
+    font-size: 2.5rem;
+  }
+
+  .hero-text {
+    margin-top: 30px;
+  }
+
+  .bground {
+    background-color: unset;
+    overflow: hidden;
+  }
+
+  .modal-body {
+    padding: 0px 8%;
+    margin: 0px auto;
+    height: 90%;
+  }
+
+  .content {
+    margin: unset;
+    max-width: unset;
+    top: 15%;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #formReserve {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .close {
+    right: 5px;
+    top: 5px;
+    transform: scale(0.5);
+  }
+
+  .formData {
+    height: 70px;
+  }
+
+  #userCondition {
+    margin-top: 10px;
+  }
+
+  .text-control {
+    font-size: 10px;
+    height: unset;
+  }
+
+  label {
+    font-size: 10px;
+    margin-bottom: unset;
+  }
+
+  .checkbox-label .checkbox-icon,
+  .checkbox2-label .checkbox-icon {
+    height: 15px;
+    width: 15px;
+  }
+
+  .checkbox2-label .checkbox-icon::after {
+    left: 15%;
+    top: 10%;
+  }
+
+  .checkbox-label {
+    font-size: 10px;
+  }
+
+  .checkbox2-label {
+    font-size: 10px;
+  }
+
+  .text-label {
+    font-size: 10px;
+  }
+
+  .btn-submit {
+    padding: 8px 62px;
+    font-size: 12px;
+    margin-top: 8px;
+  }
+
+}
+
+@media screen and (max-width: 500px) {
+  .topnav {
+    margin: 0px 0px;
+    width: 100%;
+  }
+
+  main {
+    margin: 0px 0px;
+    width: 100%;
+  }
+
+
+  .hero-headline {
+    font-size: 2rem;
+  }
+
+  .hero-text {
+    font-size: 1rem;
+  }
+
+}
+
+@media screen and (max-width: 450px) {
+  .checkbox-label {
+    flex: 1 1 15%;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .hero-headline {
+    font-size: 1.5rem;
+  }
+
+  .hero-text {
+    font-size: 0.8rem;
   }
 }
 
