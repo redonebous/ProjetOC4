@@ -58,6 +58,8 @@ formReserve.addEventListener("submit", (e) => {
   if (errors.length === 0) validationSuccess();
 })
 
+
+// Allow only letter caractere for keydown on input firstname and lastname
 let textControl = [form['firstname'], form['lastname']];
 textControl.forEach((crtl) => crtl.addEventListener('keydown', (e) => {
   let allowKeyPress = /[a-zA-Z]/g;
@@ -121,7 +123,7 @@ function checkInput(name) {
   let cities = Array.from(form['location']);
 
   let checks = {
-    firstname: /^([A-Z][a-z]{1,})|([a-z]{2,})/g.test(form['firstname'].value),
+    firstname: /([A-Z][a-z]{1,})|([a-z]{2,})/g.test(form['firstname'].value),
     lastname: /^([A-Z][a-z]{1,})|([a-z]{2,})/g.test(form['lastname'].value),
     email: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(form['email'].value),
     birthdate: form['birthdate'].value != '',
