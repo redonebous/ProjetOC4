@@ -776,6 +776,10 @@ footer {
   .hero-text {
     font-size: 0.8rem;
   }
+
+  .checkbox-label {
+    flex: 1 1 30%;
+  }
 }
 
 @keyframes modalopen {
